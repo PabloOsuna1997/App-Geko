@@ -51,7 +51,7 @@ export const LoginScreen = ( { navigation } : Props) => {
                 <View style={ styles.btnLogin }>
                         <TouchableOpacity
                             activeOpacity= {0.7}
-                            onPress = { () => {navigation.replace('CalculatorScreen')}}
+                            onPress = { () => {navigation.replace('RegistryScreen')}}
                         >
                             <Text style={ styles.btnLoginText } >Login</Text>
                         </TouchableOpacity>
