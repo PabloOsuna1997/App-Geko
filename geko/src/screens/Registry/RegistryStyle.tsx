@@ -50,11 +50,16 @@ export const styles = StyleSheet.create({
         lineHeight: 41,
         color: '#000698'
     },
-
-    container:{
-        flex: 1,
-        paddingTop: StatusBar.currentHeight,
-        position: 'absolute',
-        marginTop: 229
+    txtNot:{
+        marginTop: 0,
+        marginLeft: 120,
+        width: 197,
+        height: 39,
+        fontFamily: 'Roboto',
+        fontStyle: 'normal',
+        fontWeight: 'bold',
+        fontSize: 20,
+        lineHeight: 41,
+        color: '#000698'
     }
 })

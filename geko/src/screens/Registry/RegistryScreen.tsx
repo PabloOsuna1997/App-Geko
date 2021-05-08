@@ -51,7 +51,7 @@ export const RegistryScreen = ({ route, navigation} : Props) => {
                     (list.length > 0) ?
                     list.map(expression => renderItem(expression, key))
                     :
-                    <Text>No hay historial</Text>
+                    <Text style = {styles.txtNot}>No hay historial</Text>
                 }
             </ScrollView>
             
