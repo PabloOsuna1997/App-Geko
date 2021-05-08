@@ -38,9 +38,21 @@ export const CalculatorScreen = ({route, navigation}: Props) => {
             
     useEffect(() => {   
         if(registry.includes('=')){
+            let txt = registry
+            if(txt.includes('+')){
+                txt = 'sum -> ' + txt 
+            }else if(txt.includes('-')){
+                txt = 'subtraction -> ' + txt 
+            }
+            else if(txt.includes('/')){
+                txt = 'division -> ' + txt 
+            }
+            else {
+                txt = 'multiplication -> ' + txt 
+            }
             const add : Expression = {
                 number: item + 1,
-                expression: registry
+                expression: txt
             }
             onAddItem(add)
             setItem(item + 1)
