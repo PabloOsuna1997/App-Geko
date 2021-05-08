@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { Expression } from '../interfaces/Expression';
 
 enum Operadores {
     suma, resta, multiplicacion, division, modulo, igual
@@ -8,7 +9,8 @@ export const useCalculatorHook = () => {
     
     const [number, setNumber] = useState('0')
     const [previusNumber, setPreviusNumber] = useState('0')
-    const [registry, setRegistry] = useState('0')
+    const [item, setItem] = useState(0)
+    const [registry, setRegistry] = useState('')
     const ultimoOperador = useRef<Operadores>();
 
     const concatNumber = ( newNumber: string) => {
@@ -28,6 +30,10 @@ export const useCalculatorHook = () => {
 
             if(newNumber === '.'){
                 setNumber(number + newNumber)
+                const objecta: Expression ={
+                    number: item,
+                    expression: number + newNumber
+                }
                 setRegistry( number + newNumber)
             }
             else if(newNumber === '0' && number.includes('.')){
@@ -97,6 +103,8 @@ export const useCalculatorHook = () => {
                 break;
         }
         ultimoOperador.current = Operadores.igual
+
+
     }
 
     const subirNUmero = () => {

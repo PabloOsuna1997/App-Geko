@@ -52,6 +52,8 @@ export const styles = StyleSheet.create({
     },
 
     container:{
+        flex: 1,
+        paddingTop: StatusBar.currentHeight,
         position: 'absolute',
         marginTop: 229
     }

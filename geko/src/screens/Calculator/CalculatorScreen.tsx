@@ -1,17 +1,23 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Image, Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { ButtonCalc } from '../../components/Button/ButtonCalc';
 import { styles } from './CalculatorStyle';
 import { useCalculatorHook } from '../../hooks/useCalculator';
 import { StackScreenProps } from '@react-navigation/stack';
+import { Expression } from '../../interfaces/Expression';
+import { RegistryStackParams } from '../../navigator/RegistryNavigator';
 
 //colors 
 //#b4b0b1   gris numeros
 //#60bc73   verde 
 
-interface Props extends StackScreenProps<any, any>{}
+interface Props extends StackScreenProps<RegistryStackParams, 'CalculatorScreen'>{}
 
-export const CalculatorScreen = ({navigation}: Props) => {
+export const CalculatorScreen = ({route, navigation}: Props) => {
+
+    const { list, key } = route.params;
+    const [registryList, setRegistryList] = useState<Expression[]>([])
+    const [item, setItem] = useState(0)
 
     const {  number,
         previusNumber,
@@ -25,9 +31,30 @@ export const CalculatorScreen = ({navigation}: Props) => {
         btnModulo,
         clear } = useCalculatorHook()
 
+    useEffect(() => {
+        setRegistryList(list)
+        setItem(key)
+    }, [])
+            
+    useEffect(() => {   
+        if(registry.includes('=')){
+            const add : Expression = {
+                number: item + 1,
+                expression: registry
+            }
+            onAddItem(add)
+            setItem(item + 1)
+            console.log(registry)
+        }
+    }, [registry])
+
+    const onAddItem = (data: Expression) => {
+        setRegistryList( registryList  =>  registryList.concat(data))    
+    };
+
     return (
         <>
-            <View style={ styles.calculatorContainer }>                                             
+            <View style={ styles.calculatorContainer }>                                         
                 
                 <View style = { styles.firstContainer }>                       
                     <Image 
@@ -38,7 +65,13 @@ export const CalculatorScreen = ({navigation}: Props) => {
                     
                     <TouchableOpacity
                         style={ styles.botonReturn}
-                        onPress = {() => { navigation.replace('RegistryScreen')}}
+                        onPress = {() => {
+
+                            navigation.navigate('RegistryScreen', {
+                                list: registryList,
+                                key: item
+                            })
+                        }}
                     >
                         <View style={ styles2.fab }>
                             <Text style = { styles2.fabText}> &larr; </Text>
